@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Seafood Guy by 1998 Cafe | Authentic Hong Kong Seafood • Nottingham</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0a;
+      color: #f5f5f5;
+      overflow-x: hidden;
+    }
+
+    .font-serif { font-family: 'Playfair Display', serif; }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: 
+        radial-gradient(ellipse at 20% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(30, 60, 114, 0.15) 0%, transparent 60%);
+    }
+
+    .hero-img-container {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?w=1920&q=80') center/cover no-repeat;
+      opacity: 0.25;
+      filter: saturate(0.7);
+    }
+
+    .gold-line {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, #d4af37, #f4d03f, #d4af37);
+    }
+
+    .gold-line-long {
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    }
+
+    /* Floating particles */
+    .particle {
+      position: absolute;
+      width: 4px; height: 4px;
+      background: rgba(212, 175, 55, 0.3);
+      border-radius: 50%;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+      50% { transform: translateY(-80px) rotate(180deg); opacity: 0.8; }
+    }
+
+    /* Nav */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      transition: all 0.4s ease;
+      backdrop-filter: blur(0px);
+    }
+
+    .nav.scrolled {
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 2px 40px rgba(0,0,0,0.5);
+    }
+
+    /* Section styling */
+    .section-dark {
+      background: #0a0a0a;
+    }
+
+    .section-accent {
+      background: linear-gradient(180deg, #0f0f1a 0%, #0a0a0a 100%);
+    }
+
+    /* Menu Card */
+    .menu-card {
+      background: linear-gradient(145deg, #151520 0%, #1a1a28 100%);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      position: relative;
+    }
+
+    .menu-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #d4af37, transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(212, 175, 55, 0.4);
+      box-shadow: 0 20px 60px rgba(212, 175, 55, 0.08);
+    }
+
+    .menu-card:hover::before { opacity: 1; }
+
+    /* Gallery */
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      padding: 20px;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      transform: translateY(0);
+    }
+
+    /* Review Card */
+    .review-card {
+      background: linear-gradient(145deg, #151520, #1c1c30);
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      border-radius: 16px;
+      padding: 32px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .review-card:hover {
+      border-color: rgba(212, 175, 55, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .review-card .quote-icon {
+      position: absolute;
+      top: 16px; left: 24px;
+      font-size: 64px;
+      color: rgba(212, 175, 55, 0.12);
+      font-family: 'Playfair Display', serif;
+      line-height: 1;
+    }
+
+    /* Stars */
+    .star { color: #d4af37; }
+
+    /* CTA Button */
+    .cta-btn {
+      background: linear-gradient(135deg, #d4af37, #f4d03f);
+      color: #0a0a0a;
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 30px rgba(212, 175, 55, 0.3);
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 40px rgba(212, 175, 55, 0.5);
+    }
+
+    .cta-btn-outline {
+      border: 2px solid #d4af37;
+      color: #d4af37;
+      padding: 14px 38px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
+
+    .cta-btn-outline:hover {
+      background: rgba(212, 175, 55, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* Info Cards */
+    .info-card {
+      background: linear-gradient(145deg, #151520, #1a1a28);
+      border: 1px solid rgba(212, 175, 55, 0.12);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .info-card:hover {
+      border-color: rgba(212, 175, 55, 0.3);
+      transform: translateY(-4px);
+    }
+
+    /* Rating badge */
+    .rating-badge {
+      background: linear-gradient(135deg, #d4af37, #f4d03f);
+      color: #0a0a0a;
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Hygiene badge */
+    .hygiene-badge {
+      background: linear-gradient(135deg, #16a34a, #22c55e);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 4px; }
+
+    /* Map container */
+    .map-container {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    /* Animate on scroll */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10, 10, 10, 0.98);
+      z-index: 200;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+
+    .mobile-menu.active { display: flex; }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .lightbox.active { display: flex; }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    /* Pulse animation for phone */
+    @keyframes pulse-gold {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
+      50% { box-shadow: 0 0 0 12px rgba(212, 175, 55, 0); }
+    }
+
+    .pulse-gold { animation: pulse-gold 2s ease-in-out infinite; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero { min-height: 600px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="navbar">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#hero" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-600 to-yellow-400 flex items-center justify-center">
+          <span class="text-black font-bold text-lg font-serif">S</span>
+        </div>
+        <div>
+          <div class="text-lg font-bold tracking-wide" style="color: #d4af37;">THE SEAFOOD GUY</div>
+          <div class="text-[10px] tracking-[3px] uppercase" style="color: rgba(212,175,55,0.6);">by 1998 Cafe</div>
+        </div>
+      </a>
+
+      <div class="nav-links hidden md:flex items-center gap-8">
+        <a href="#about" class="text-sm text-gray-300 hover:text-yellow-400 transition tracking-wider uppercase">About</a>
+        <a href="#menu" class="text-sm text-gray-300 hover:text-yellow-400 transition tracking-wider uppercase">Menu</a>
+        <a href="#gallery" class="text-sm text-gray-300 hover:text-yellow-400 transition tracking-wider uppercase">Gallery</a>
+        <a href="#reviews" class="text-sm text-gray-300 hover:text-yellow-400 transition tracking-wider uppercase">Reviews</a>
+        <a href="#contact" class="text-sm text-gray-300 hover:text-yellow-400 transition tracking-wider uppercase">Contact</a>
+        <a href="tel:+447311992868" class="cta-btn text-xs px-6 py-3">Book Now</a>
+      </div>
+
+      <!-- Hamburger -->
+      <button class="hamburger hidden flex-col gap-1.5 md:hidden" onclick="toggleMobileMenu()" style="display:none;">
+        <span class="w-6 h-0.5 bg-yellow-400 transition"></span>
+        <span class="w-6 h-0.5 bg-yellow-400 transition"></span>
+        <span class="w-6 h-0.5 bg-yellow-400 transition"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-3xl text-yellow-400">&times;</button>
+    <a href="#about" onclick="toggleMobileMenu()" class="text-2xl text-gray-200 hover:text-yellow-400 tracking-wider uppercase">About</a>
+    <a href="#menu" onclick="toggleMobileMenu()" class="text-2xl text-gray-200 hover:text-yellow-400 tracking-wider uppercase">Menu</a>
+    <a href="#gallery" onclick="toggleMobileMenu()" class="text-2xl text-gray-200 hover:text-yellow-400 tracking-wider uppercase">Gallery</a>
+    <a href="#reviews" onclick="toggleMobileMenu()" class="text-2xl text-gray-200 hover:text-yellow-400 tracking-wider uppercase">Reviews</a>
+    <a href="#contact" onclick="toggleMobileMenu()" class="text-2xl text-gray-200 hover:text-yellow-400 tracking-wider uppercase">Contact</a>
+    <a href="tel:+447311992868" class="cta-btn mt-4">Book Now</a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero flex items-center justify-center" id="hero">
+    <div class="hero-img-container"></div>
+
+    <!-- Floating Particles -->
+    <div class="particle" style="top:20%;left:10%;animation-delay:0s;"></div>
+    <div class="particle" style="top:40%;left:85%;animation-delay:2s;"></div>
+    <div class="particle" style="top:70%;left:25%;animation-delay:4s;"></div>
+    <div class="particle" style="top:30%;left:70%;animation-delay:1s;"></div>
+    <div class="particle" style="top:80%;left:60%;animation-delay:3s;"></div>
+    <div class="particle" style="top:15%;left:50%;animation-delay:5s;"></div>
+
+    <div class="relative z-10 text-center px-6 max-w-4xl">
+      <div class="flex items-center justify-center gap-4 mb-6">
+        <div class="gold-line"></div>
+        <span class="text-xs tracking-[6px] uppercase" style="color: #d4af37;">正嘢冰室 • Nottingham</span>
+        <div class="gold-line"></div>
+      </div>
+
+      <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold mb-4 leading-tight">
+        <span class="block" style="color: #d4af37;">The Seafood Guy</span>
+      </h1>
+      <p class="font-serif text-2xl md:text-3xl text-gray-300 mb-2 italic">by 1998 Cafe</p>
+
+      <div class="gold-line-long mx-auto my-8"></div>
+
+      <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+        Authentic Hong Kong-Style Seafood & Cha Chaan Teng Experience<br>
+        <span class="text-sm text-gray-500">Where tradition meets the finest catch of the day</span>
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="tel:+447311992868" class="cta-btn">
+          📞 Call to Reserve
+        </a>
+        <a href="#menu" class="cta-btn-outline">
+          Explore Our Menu
+        </a>
+      </div>
+
+      <div class="mt-12 flex items-center justify-center gap-6">
+        <div class="rating-badge">
+          ★ 4.4 / 5
+        </div>
+        <span class="text-gray-500 text-sm">800+ Google Reviews</span>
+        <div class="hygiene-badge">
+          ✓ 5/5 Hygiene Rating
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
+      <span class="text-xs text-gray-500 tracking-widest uppercase">Scroll</span>
+      <svg width="20" height="20" fill="none" stroke="#d4af37" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M12 5v14m-7-7l7 7 7-7"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section-accent py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div class="fade-up">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="gold-line"></div>
+            <span class="text-xs tracking-[4px] uppercase" style="color: #d4af37;">Our Story</span>
+          </div>
+          <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6" style="color: #d4af37;">A Taste of<br>Hong Kong</h2>
+          <p class="text-gray-400 leading-relaxed mb-6 text-lg">
+            Run by the passionate chef and owner <strong class="text-gray-200">Johnny Tam</strong>, The Seafood Guy by 1998 Cafe brings a true slice of Hong Kong's vibrant food culture to the heart of Nottingham.
+          </p>
+          <p class="text-gray-400 leading-relaxed mb-8">
+            Walk through our quirky Asian provisions shop at the front and discover a cozy, bustling 40-seater dining space that transports you straight to the streets of Hong Kong. Every dish is prepared with genuine care, authenticity, and flavor.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <div class="flex items-center gap-2 bg-yellow-400/10 px-4 py-2 rounded-full">
+              <span style="color:#d4af37;">🏆</span>
+              <span class="text-sm text-gray-300">Award-Winning Chef</span>
+            </div>
+            <div class="flex items-center gap-2 bg-yellow-400/10 px-4 py-2 rounded-full">
+              <span style="color:#d4af37;">🇭🇰</span>
+              <span class="text-sm text-gray-300">Authentic HK Recipes</span>
+            </div>
+            <div class="flex items-center gap-2 bg-yellow-400/10 px-4 py-2 rounded-full">
+              <span style="color:#d4af37;">🦞</span>
+              <span class="text-sm text-gray-300">Fresh Seafood Daily</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="fade-up grid grid-cols-2 gap-4">
+          <div class="rounded-2xl overflow-hidden h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&q=80');">
+          </div>
+          <div class="rounded-2xl overflow-hidden h-64 mt-8 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80');">
+          </div>
+          <div class="rounded-2xl overflow-hidden h-64 -mt-4 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1563245372-f21724e3856d?w=600&q=80');">
+          </div>
+          <div class="rounded-2xl overflow-hidden h-64 mt-4 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600&q=80');">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <section class="py-16 border-y" style="border-color: rgba(212,175,55,0.15); background: linear-gradient(135deg, #0f0f1a, #151525);">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div class="fade-up">
+        <div class="font-serif text-4xl font-bold mb-2" style="color: #d4af37;">800+</div>
+        <div class="text-sm text-gray-400 tracking-wider uppercase">Google Reviews</div>
+      </div>
+      <div class="fade-up">
+        <div class="font-serif text-4xl font-bold mb-2" style="color: #d4af37;">4.4★</div>
+        <div class="text-sm text-gray-400 tracking-wider uppercase">Average Rating</div>
+      </div>
+      <div class="fade-up">
+        <div class="font-serif text-4xl font-bold mb-2" style="color: #d4af37;">5/5</div>
+        <div class="text-sm text-gray-400 tracking-wider uppercase">Hygiene Rating</div>
+      </div>
+      <div class="fade-up">
+        <div class="font-serif text-4xl font-bold mb-2" style="color: #d4af37;">40+</div>
+        <div class="text-sm text-gray-400 tracking-wider uppercase">Signature Dishes</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section id="menu" class="section-dark py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 fade-up">
+        <div class="flex items-center justify-center gap-3 mb-4">
+          <div class="gold-line"></div>
+          <span class="text-xs tracking-[4px] uppercase" style="color: #d4af37;">Curated Selection</span>
+          <div class="gold-line"></div>
+        </div>
+        <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4" style="color: #d4af37;">Our Signature Menu</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">Discover our finest selections — from traditional Cha Chaan Teng classics to premium fresh seafood specialties, each dish tells a story of Hong Kong flavour and care.</p>
+      </div>
+
+      <!-- Seafood Specialties -->
+      <div class="mb-16 fade-up">
+        <h3 class="font-serif text-2xl font-bold mb-8 flex items-center gap-3">
+          <span style="color: #d4af37;">🦀</span>
+          <span class="text-gray-200">Seafood Specialties</span>
+          <div class="flex-1 h-px" style="background: linear-gradient(90deg, rgba(212,175,55,0.3), transparent);"></div>
+        </h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Card 1 -->
+          <div class="menu-card p-6">
+            <div class="h-48 rounded-xl mb-4 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1559737558-2f5a35f4523b?w=500&q=80');"></div>
+            <div class="flex justify-between items-start mb-2">
+              <h4 class="text-lg font-bold text-gray-100">Ginger & Scallion Stir-Fried Crab</h4>
+              <span class="text-yellow-400 font-bold text-sm whitespace-nowrap ml-2">Market Price</span>
+            </div>
+            <p class="text-gray-500 text-sm">Whole fresh crab wok-tossed with aromatic ginger and spring onion. Pre-order recommended.</p>
+            <div class="mt-3 flex items-center gap-2">
+              <span class="text-[10px] bg-yellow-400/10 text-yellow-400 px-2 py-1 rounded-full uppercase tracking-wider">Chef's Special</span>
+              <span class="text-[10px] bg-red-500/10 text-red-400 px-2 py-1 rounded-full uppercase tracking-wider">Pre-Order</span>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="menu-card p-6">
+            <div class="h-48 rounded-xl mb-4 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1625943553852-781c6dd46faa?w=500&q=80');"></div>
+            <div class="flex justify-between items-start mb-2">
+              <h4 class="text-lg font-bold text-gray-100">Typhoon Shelter Fried King Prawns</h4>
+              <span class="text-yellow-400 font-bold text-sm whitespace-nowrap ml-2">£16.90</span>
+            </div>
+            <p class="text-gray-500 text-sm">Crispy king prawns in spicy garlic breadcrumb — a classic Hong Kong typhoon shelter style dish.</p>
+            <div class="mt-3">
+              <span class="text-[10px] bg-orange-500/10 text-orange-400 px-2 py-1 rounded-full uppercase tracking-wider">🔥 Bestseller</span>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="menu-card p-6">
+            <div class="h-48 rounded-xl mb-4 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1590759668628-05b0fc34bb70?w=500&q=80');"></div>
+            <div class="flex justify-between items-start mb-2">
+              <h4 class="text-lg font-bold text-gray-100">Steamed Scallops with Garlic & Vermicelli</h4>
+              <span class="text-yellow-400 font-bold text-sm whitespace-nowrap ml-2">£14.90</span>
+            </div>
+            <p class="text-gray-500 text-sm">Fresh scallops steamed to perfection on a bed of glass noodles with minced garlic.</p>
+            <div class="mt-3">
+              <span class="text-[10px] bg-yellow-400/10 text-yellow-400 px-2 py-1 rounded-full uppercase tracking-wider">Signature</span>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="menu-card p-6">
+            <div class="h-48 rounded-xl mb-4 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1580217593608-61931ceae4a8?w=500&q=80');"></div>
+            <div class="flex justify-between items-start mb-2">
+              <h4 class="text-lg font-bold text-gray-100">Pan-Fried Pomfret with Black Bean Sauce</h4>
+              <span class="text-yellow-400 font-bold text-sm whitespace-nowrap ml-2">£15.90</span>
+            </div>
+            <p class="text-gray-500 text-sm">Whole pomfret fish pan-fried until golden, topped with savoury fermented black bean sauce.</p>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="menu-card p-6">
+            <div class="h-48 rounded-xl mb-4 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&q=80');"></div>
+            <div class="flex justify-between items-start mb-2">
+              <h4 class="text-lg font-bold text-gray-100">Whisky Sizzling Seafood Pot</h4>
+              <span class="text-yellow-400 font-bold text-sm whitespace-nowrap ml-2">£18.90</span>
+            </div>
+            <p class="text-gray-500 text-sm">A theatrical showpiece — mixed seafood in a sizzling hot pot, ignited tableside with whisky flames.</p>
+            <div class="mt-3">
+              <span class="text-[10px] bg-purple-500/10 text-purple-400 px-2 py-1 rounded-full uppercase tracking-wider">✨ Theatrical</span>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="menu-card p-6">
+            <div class="h-48 rounded-xl mb-4 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1585032226651-759b368d7246?w=500&q=80');"></div>
+            <div class="flex justify-between items-start mb-2">
+              <h4 class="text-lg font-bold text-gray-100">Deep-Fried Prawn Toast</h4>
+              <span class="text-yellow-400 font-bold text-sm whitespace-nowrap ml-2">£8.90</span>
+            </div>
+            <p class="text-gray-500 text-sm">Thick cut toast topped with whole prawns and golden-fried to crispy perfection. Not your average prawn toast!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- HK Classics -->
+      <div class="mb-16 fade-up">
+        <h3 class="font-serif text-2xl font-bold mb-8 flex items-center gap-3">
+          <span style="color: #d4af37;">🍜</span>
+          <span class="text-gray-200">Cha Chaan Teng Classics</span>
+          <div class="flex-1 h-px" style="background: linear-gradient(90deg, rgba(212,175,55,0.3), transparent);"></div>
+        </h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="menu-card p-6">
+            <div class="h-48 rounded-xl mb-4 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=500&q=80');"></div>
+            <div class="flex justify-between items-start mb-2">
+              <h4 class="text-lg font-bold text-gray-100">HK-Style French Toast</h4>
+              <span class="text-yellow-400 font-bold text-sm whitespace-nowrap ml-2">£7.90</span>
+            </div>
+            <p class="text-gray-500 text-sm">Thick-cut peanut butter French toast with golden syrup and butter. Also available in Chocolate Lava variation.</p>
+            <div class="mt-3">
+              <span class="text-[10px] bg-orange-500/10 text-orange-400 px-2 py-1 rounded-full uppercase tracking-wider">🔥 Must Try</span>
+            </div>
+          </div>
+
+          <div class="menu-card p-6">
+            <div class="h-48 rounded-xl mb-4 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1569058242567-93de6f36f8e6?w=500&q=80');"></div>
+            <div class="flex justify-between items-start mb-2">
+              <h4 class="text-lg font-bold text-gray-100">Boneless Chicken with Sand Ginger</h4>
+              <span class="text-yellow-400 font-bold text-sm whitespace-nowrap ml-2">£12.90</span>
+            </div>
+            <p class="text-gray-500 text-sm">Tender boneless chicken thigh served with aromatic sand ginger sauce and steamed rice.</p>
+          </div>
+
+          <div class="menu-card p-6">
+            <div class="h-48 rounded-xl mb-4 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=500&q=80');"></div>
+            <div class="flex justify-between items-start mb-2">
+              <h4 class="text-lg font-bold text-gray-100">Sriracha Deep-Fried Chicken</h4>
+              <span class="text-yellow-400 font-bold text-sm whitespace-nowrap ml-2">£17.90</span>
+            </div>
+            <p class="text-gray-500 text-sm">Crispy deep-fried boneless chicken tossed in house-made sriracha hot sauce. Spicy perfection.</p>
+            <div class="mt-3">
+              <span class="text-[10px] bg-red-500/10 text-red-400 px-2 py-1 rounded-full uppercase tracking-wider">🌶️ Spicy</span>
+            </div>
+          </div>
+
+          <div class="menu-card p-6">
+            <div class="h-48 rounded-xl mb-4 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1544025162-d76694265947?w=500&q=80');"></div>
+            <div class="flex justify-between items-start mb-2">
+              <h4 class="text-lg font-bold text-gray-100">HK-Style BBQ Pork Rice</h4>
+              <span class="text-yellow-400 font-bold text-sm whitespace-nowrap ml-2">£11.90</span>
+            </div>
+            <p class="text-gray-500 text-sm">Char siu glazed pork with soy sauce chicken served over fluffy steamed rice. A Hong Kong classic.</p>
+          </div>
+
+          <div class="menu-card p-6">
+            <div class="h-48 rounded-xl mb-4 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=500&q=80');"></div>
+            <div class="flex justify-between items-start mb-2">
+              <h4 class="text-lg font-bold text-gray-100">Sweet & Sour Pork</h4>
+              <span class="text-yellow-400 font-bold text-sm whitespace-nowrap ml-2">£13.90</span>
+            </div>
+            <p class="text-gray-500 text-sm">Crispy golden pork pieces wok-tossed in our signature sweet and sour sauce with bell peppers.</p>
+          </div>
+
+          <div class="menu-card p-6">
+            <div class="h-48 rounded-xl mb-4 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=500&q=80');"></div>
+            <div class="flex justify-between items-start mb-2">
+              <h4 class="text-lg font-bold text-gray-100">Takoyaki</h4>
+              <span class="text-yellow-400 font-bold text-sm whitespace-nowrap ml-2">£6.90</span>
+            </div>
+            <p class="text-gray-500 text-sm">Golden Japanese-style octopus balls topped with takoyaki sauce, mayo, and bonito flakes.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Beverages -->
+      <div class="fade-up">
+        <h3 class="font-serif text-2xl font-bold mb-8 flex items-center gap-3">
+          <span style="color: #d4af37;">🍵</span>
+          <span class="text-gray-200">Traditional Beverages</span>
+          <div class="flex-1 h-px" style="background: linear-gradient(90deg, rgba(212,175,55,0.3), transparent);"></div>
+        </h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="info-card">
+            <div class="text-4xl mb-3">🫖</div>
+            <h4 class="font-bold text-gray-100 mb-1">HK Milk Tea</h4>
+            <p class="text-gray-500 text-sm mb-2">Silky smooth traditional style</p>
+            <span class="text-yellow-400 font-bold">£3.50</span>
+          </div>
+          <div class="info-card">
+            <div class="text-4xl mb-3">🍋</div>
+            <h4 class="font-bold text-gray-100 mb-1">HK Lemon Tea</h4>
+            <p class="text-gray-500 text-sm mb-2">Refreshing iced with fresh lemon</p>
+            <span class="text-yellow-400 font-bold">£3.50</span>
+          </div>
+          <div class="info-card">
+            <div class="text-4xl mb-3">☕</div>
+            <h4 class="font-bold text-gray-100 mb-1">Yuen-Yeung</h4>
+            <p class="text-gray-500 text-sm mb-2">Iconic coffee-tea fusion</p>
+            <span class="text-yellow-400 font-bold">£3.90</span>
+          </div>
+          <div class="info-card">
+            <div class="text-4xl mb-3">🍹</div>
+            <h4 class="font-bold text-gray-100 mb-1">Iced HK Lemonade</h4>
+            <p class="text-gray-500 text-sm mb-2">Fresh muddled lemon slices</p>
+            <span class="text-yellow-400 font-bold">£3.90</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery" class="section-accent py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 fade-up">
+        <div class="flex items-center justify-center gap-3 mb-4">
+          <div class="gold-line"></div>
+          <span class="text-xs tracking-[4px] uppercase" style="color: #d4af37;">Visual Journey</span>
+          <div class="gold-line"></div>
+        </div>
+        <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4" style="color: #d4af37;">Gallery</h2>
+        <p class="text-gray-400 max-w-xl mx-auto">A glimpse into our world of authentic Hong Kong cuisine and vibrant dining atmosphere.</p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 fade-up">
+        <div class="gallery-item h-64 md:h-80">
+          <img src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?w=600&q=80" alt="Fresh Seafood Platter">
+          <div class="gallery-overlay">
+            <p class="text-white font-semibold">Fresh Seafood Selection</p>
+          </div>
+        </div>
+        <div class="gallery-item h-64 md:h-80 md:row-span-2">
+          <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&q=80" alt="Restaurant Interior">
+          <div class="gallery-overlay">
+            <p class="text-white font-semibold">Our Cozy Dining Space</p>
+          </div>
+        </div>
+        <div class="gallery-item h-64 md:h-80">
+          <img src="https://images.unsplash.com/photo-1562967916-eb82221dfb44?w=600&q=80" alt="Sizzling Dish">
+          <div class="gallery-overlay">
+            <p class="text-white font-semibold">Sizzling Hot Plates</p>
+          </div>
+        </div>
+        <div class="gallery-item h-64 md:h-80">
+          <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=600&q=80" alt="Steamed Prawns">
+          <div class="gallery-overlay">
+            <p class="text-white font-semibold">Steamed King Prawns</p>
+          </div>
+        </div>
+        <div class="gallery-item h-64 md:h-80">
+          <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600&q=80" alt="Noodle Dish">
+          <div class="gallery-overlay">
+            <p class="text-white font-semibold">HK-Style Noodles</p>
+          </div>
+        </div>
+        <div class="gallery-item h-64 md:h-80">
+          <img src="https://images.unsplash.com/photo-1485963631004-f2f00b1d6571?w=600&q=80" alt="Hong Kong Milk Tea">
+          <div class="gallery-overlay">
+            <p class="text-white font-semibold">Traditional HK Milk Tea</p>
+          </div>
+        </div>
+        <div class="gallery-item h-64 md:h-80">
+          <img src="https://images.unsplash.com/photo-1606491956689-2ea866880049?w=600&q=80" alt="Dim Sum">
+          <div class="gallery-overlay">
+            <p class="text-white font-semibold">Dim Sum Delights</p>
+          </div>
+        </div>
+        <div class="gallery-item h-64 md:h-80">
+          <img src="https://images.unsplash.com/photo-1569058242567-93de6f36f8e6?w=600&q=80" alt="BBQ Pork">
+          <div class="gallery-overlay">
+            <p class="text-white font-semibold">HK-Style BBQ Pork</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews Section -->
+  <section id="reviews" class="section-dark py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 fade-up">
+        <div class="flex items-center justify-center gap-3 mb-4">
+          <div class="gold-line"></div>
+          <span class="text-xs tracking-[4px] uppercase" style="color: #d4af37;">Testimonials</span>
+          <div class="gold-line"></div>
+        </div>
+        <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4" style="color: #d4af37;">What Our Guests Say</h2>
+        <p class="text-gray-400 max-w-xl mx-auto">Real reviews from real customers on Google Maps — rated 4.4/5 with over 800 reviews.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 fade-up">
+        <!-- Review 1 -->
+        <div class="review-card">
+          <div class="quote-icon">"</div>
+          <div class="flex items-center gap-1 mb-4 pt-2">
+            <span class="star text-lg">★★★★★</span>
+          </div>
+          <p class="text-gray-300 mb-6 leading-relaxed relative z-10">
+            "Absolutely phenomenal! The ginger and scallion crab was the best I've had outside of Hong Kong. Johnny and his team made us feel like family. The French toast is unreal — don't skip it!"
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white font-bold">
+              S
+            </div>
+            <div>
+              <div class="text-gray-200 font-semibold text-sm">Sarah M.</div>
+              <div class="text-gray-500 text-xs">Google Review • ★★★★★</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-card">
+          <div class="quote-icon">"</div>
+          <div class="flex items-center gap-1 mb-4 pt-2">
+            <span class="star text-lg">★★★★★</span>
+          </div>
+          <p class="text-gray-300 mb-6 leading-relaxed relative z-10">
+            "A hidden gem in Nottingham! As someone from Hong Kong, I can confirm this is as authentic as it gets. The milk tea is spot on, and the typhoon shelter prawns transported me back home."
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center text-white font-bold">
+              W
+            </div>
+            <div>
+              <div class="text-gray-200 font-semibold text-sm">Wing C.</div>
+              <div class="text-gray-500 text-xs">Google Review • ★★★★★</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review-card">
+          <div class="quote-icon">"</div>
+          <div class="flex items-center gap-1 mb-4 pt-2">
+            <span class="star text-lg">★★★★★</span>
+          </div>
+          <p class="text-gray-300 mb-6 leading-relaxed relative z-10">
+            "The whisky sizzling pot was a show-stopper! Flames shooting up at the table — the kids loved it. Every dish was fresh and packed with flavour. We've been back three times already."
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center text-white font-bold">
+              J
+            </div>
+            <div>
+              <div class="text-gray-200 font-semibold text-sm">James T.</div>
+              <div class="text-gray-500 text-xs">Google Review • ★★★★★</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 4 -->
+        <div class="review-card">
+          <div class="quote-icon">"</div>
+          <div class="flex items-center gap-1 mb-4 pt-2">
+            <span class="star text-lg">★★★★☆</span>
+          </div>
+          <p class="text-gray-300 mb-6 leading-relaxed relative z-10">
+            "Walked through the little Asian shop at the front and found this amazing restaurant tucked in the back. The steamed scallops with garlic were incredible. Such a unique place!"
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-white font-bold">
+              R
+            </div>
+            <div>
+              <div class="text-gray-200 font-semibold text-sm">Rachel P.</div>
+              <div class="text-gray-500 text-xs">Google Review • ★★★★</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 5 -->
+        <div class="review-card">
+          <div class="quote-icon">"</div>
+          <div class="flex items-center gap-1 mb-4 pt-2">
+            <span class="star text-lg">★★★★★</span>
+          </div>
+          <p class="text-gray-300 mb-6 leading-relaxed relative z-10">
+            "Best Chinese restaurant in Nottingham by miles. The fact that it's full of Hong Kong locals tells you everything you need to know about the authenticity. BBQ pork rice is divine!"
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold">
+              D
+            </div>
+            <div>
+              <div class="text-gray-200 font-semibold text-sm">David L.</div>
+              <div class="text-gray-500 text-xs">Google Review • ★★★★★</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 6 -->
+        <div class="review-card">
+          <div class="quote-icon">"</div>
+          <div class="flex items-center gap-1 mb-4 pt-2">
+            <span class="star text-lg">★★★★★</span>
+          </div>
+          <p class="text-gray-300 mb-6 leading-relaxed relative z-10">
+            "Came here after seeing it on LeftLion — absolutely did not disappoint! The sriracha fried chicken was perfectly crispy and the lemon tea was so refreshing. 5/5 hygiene rating too!"
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white font-bold">
+              E
+            </div>
+            <div>
+              <div class="text-gray-200 font-semibold text-sm">Emma W.</div>
+              <div class="text-gray-500 text-xs">Google Review • ★★★★★</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review CTA -->
+      <div class="text-center mt-12 fade-up">
+        <a href="https://maps.app.goo.gl/qrPqsUskLTfnX7FP9" target="_blank" class="cta-btn-outline">
+          📍 See All Reviews on Google Maps
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & Location Section -->
+  <section id="contact" class="section-accent py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 fade-up">
+        <div class="flex items-center justify-center gap-3 mb-4">
+          <div class="gold-line"></div>
+          <span class="text-xs tracking-[4px] uppercase" style="color: #d4af37;">Visit Us</span>
+          <div class="gold-line"></div>
+        </div>
+        <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4" style="color: #d4af37;">Find Us & Get in Touch</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 items-start">
+        <!-- Info Column -->
+        <div class="space-y-6 fade-up">
+          <!-- Address -->
+          <div class="info-card text-left flex items-start gap-4">
+            <div class="w-14 h-14 rounded-xl bg-yellow-400/10 flex items-center justify-center flex-shrink-0">
+              <span class="text-2xl">📍</span>
+            </div>
+            <div>
+              <h4 class="font-bold text-gray-100 mb-1 text-lg">Address</h4>
+              <p class="text-gray-400">101 Castle Boulevard<br>Nottingham, NG7 1FE<br>United Kingdom</p>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <a href="tel:+447311992868" class="info-card text-left flex items-start gap-4 block pulse-gold" style="text-decoration:none;">
+            <div class="w-14 h-14 rounded-xl bg-yellow-400/10 flex items-center justify-center flex-shrink-0">
+              <span class="text-2xl">📞</span>
+            </div>
+            <div>
+              <h4 class="font-bold text-gray-100 mb-1 text-lg">Phone & Bookings</h4>
+              <p class="text-yellow-400 text-xl font-bold">+44 7311 992868</p>
+              <p class="text-gray-500 text-sm mt-1">Call to book or pre-order seafood specials</p>
+            </div>
+          </a>
+
+          <!-- Hours -->
+          <div class="info-card text-left flex items-start gap-4">
+            <div class="w-14 h-14 rounded-xl bg-yellow-400/10 flex items-center justify-center flex-shrink-0">
+              <span class="text-2xl">🕐</span>
+            </div>
+            <div>
+              <h4 class="font-bold text-gray-100 mb-1 text-lg">Opening Hours</h4>
+              <div class="space-y-2 mt-2">
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-400">Monday — Sunday</span>
+                  <span class="text-gray-200 font-semibold">12:00 PM — 9:00 PM</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-500">Last Orders</span>
+                  <span class="text-gray-400">8:00 PM</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Online -->
+          <div class="info-card text-left flex items-start gap-4">
+            <div class="w-14 h-14 rounded-xl bg-yellow-400/10 flex items-center justify-center flex-shrink-0">
+              <span class="text-2xl">🛵</span>
+            </div>
+            <div>
+              <h4 class="font-bold text-gray-100 mb-1 text-lg">Order Online</h4>
+              <p class="text-gray-400 text-sm mb-3">Available on major delivery platforms</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs bg-green-500/10 text-green-400 px-3 py-1 rounded-full">Uber Eats</span>
+                <span class="text-xs bg-cyan-500/10 text-cyan-400 px-3 py-1 rounded-full">Deliveroo</span>
+                <span class="text-xs bg-orange-500/10 text-orange-400 px-3 py-1 rounded-full">Just Eat</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Map Column -->
+        <div class="fade-up map-container">
+          <iframe
+            src="https://www.google.com/maps?q=101%20Castle%20Boulevard%20Nottingham%20NG7%201FE&output=embed"
+            width="100%"
+            height="620"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenu.classList.toggle('active');
+    }
+
+    // Fade in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
